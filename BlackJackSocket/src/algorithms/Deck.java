@@ -1,11 +1,15 @@
-package algoritms;
+package algorithms;
+import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * @author Carlos
+ *
+ */
 public class Deck {
 
-	private Card[] myCards;
-	// Para saber cuantas cartas quedan en el deck
-	private int numCards;
+	private ArrayList<Card> myCards = new ArrayList<>();
+	private int numCards;	// Para saber cuantas cartas quedan en el deck
 	
 	public Deck(){
 		this(1,false);
@@ -14,7 +18,6 @@ public class Deck {
 	public Deck(int numDecks, boolean shuffle){
 		// cada deck tiene por default 52 cartas
 		this.numCards = numDecks * 52;
-		this.myCards = new Card[this.numCards];
 		
 		// empezar las cartas en 0 para crearlas en el for
 		int c= 0;
@@ -25,7 +28,7 @@ public class Deck {
 				for(int n= 1; n<=13; n++){
 					
 					//Para cada valor del suit le va a dar 13 numeros diferentes
-					this.myCards[c] = new Card(Suit.values()[s],n);
+					this.myCards.add(c,new Card(Suit.values()[s],n));
 					//incrementar variable c para seguir con la siguiente carta
 					c++;
 				}
@@ -46,17 +49,25 @@ public class Deck {
 			//numero random entre 0 y 52
 			s = rnd.nextInt(this.numCards);
 			
-			temp = this.myCards[i];
-			this.myCards[i] = this.myCards[s];
-			this.myCards[s] = temp;
-			
+			temp = this.myCards.get(i);
+			this.myCards.set(i, this.myCards.get(s));
+			this.myCards.set(s, temp);			
 		}
 		
 	}
 	
-	public Card nextCard(){
-		Card tope = this.myCards[0];
+	/**
+	 * @return the card on top of the deck
+	 */
+	public Card nextCard(){		
+		return this.myCards.remove(0);
+	}
+	
+	public void printDeck(int numToPrint){
 		
-		return tope;
+		for(int c = 0; c<numToPrint;c++){
+			System.out.printf("% 3d/%d %s \n",c+1,this.numCards,this.myCards.get(c).toString());
+		}
+		System.out.printf("\t\t[%d other] \n", this.numCards - numToPrint);
 	}
 }

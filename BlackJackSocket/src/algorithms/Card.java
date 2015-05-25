@@ -1,4 +1,4 @@
-package algoritms;
+package algorithms;
 
 public class Card {
 
@@ -16,6 +16,18 @@ public class Card {
 	}
 	
 	public String toString(){
-		return myNumber + " of " + mySuit;
+		switch(myNumber){
+		case 1:
+			return  "A of " + mySuit;
+		case 11:
+			return  "J of " + mySuit;
+		case 12:
+			return  "Q of " + mySuit;
+		case 13:
+			return  "K of " + mySuit;
+		default:
+			return myNumber + " of " + mySuit;
+		}
+			
 	}
 }
